@@ -1,7 +1,7 @@
 import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import debounce from 'lodash.debounce';
-import {fetchCountries} from './js/fetchCountries';
+import { fetchCountries } from './js/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -56,3 +56,11 @@ function promisHendler(promis) {
     }).catch(error => console.log(error))
 
 }
+
+Notify.init({
+    width: '700px',
+    fontSize: '30px',
+    borderRadius: '10px',
+    position: 'center-top',
+    fontAwesomeIconSize: '64px',
+});
