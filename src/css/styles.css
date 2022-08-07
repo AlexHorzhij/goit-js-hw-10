@@ -18,3 +18,39 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.country__item{
+display: flex;
+align-items: center;
+}
+.country__flag{
+  width: 60px;
+  height: 40px;
+}
+.country__name{
+  font-size: 40px;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+
+.country-wrapper{
+  display: flex;
+  align-items: center;
+}
+.one-country__flag {
+  width: 100px;
+  height: 60px;
+}
+.one-country__name {
+  font-size: 60px;
+  font-weight: 700;
+  margin-left: 20px;
+}
+.one-country__items{
+  font-size: 30px;
+  font-weight: 700;
+}
+.one-country__items-value{
+  font-weight: 400;
+}
