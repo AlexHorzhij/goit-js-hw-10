@@ -14,11 +14,11 @@ const refs = {
 refs.input.addEventListener('input', debounce(searchCountry, DEBOUNCE_DELAY))
 
 function searchCountry() {
-    const countryFoSearch = refs.input.value.trim()
-    if (countryFoSearch === '') {
+    const countryForSearch = refs.input.value.trim()
+    if (countryForSearch === '') {
         refs.countryList.innerHTML = ""
     } else {
-        const selectCountry = fetchCountries(countryFoSearch)
+        const selectCountry = fetchCountries(countryForSearch)
         promisHendler(selectCountry)
     }
 }
@@ -30,8 +30,11 @@ function createMarkup(countries) {
 function createOneCountryMarkup(countries) {
     return countries.map(item => {
         return `<div class="country-wrapper">
-        <img src="${item.flags.svg}" class="one-country__flag"><span class="one-country__name">${item.name.common}</span></div>
-        <p class="one-country__items">Capital: <span class="one-country__items-value">${item.capital}</span></p><p class="one-country__items">Population: <span class="one-country__items-value">${item.population}</span></p><p class="one-country__items">Languages: <span class="one-country__items-value">${Object.values(item.languages).join(", ")}</span></p>`
+        <img src="${item.flags.svg}" class="one-country__flag">
+        <span class="one-country__name">${item.name.common}</span></div>
+        <p class="one-country__items">Capital: <span class="one-country__items-value">${item.capital}</span></p>
+        <p class="one-country__items">Population: <span class="one-country__items-value">${item.population}</span></p>
+        <p class="one-country__items">Languages: <span class="one-country__items-value">${Object.values(item.languages).join(", ")}</span></p>`
     })
 }
 
@@ -40,21 +43,17 @@ function insertMarkup(countryMarkup) {
     refs.countryList.insertAdjacentHTML("beforeend", countryMarkup)
 }
  
+
 function promisHendler(promis) {
     promis.then(data => {
-    if (data.status === 404) {
-        Notify.failure('Oops, there is no country with that name')
-    } else {return data}})
-    .then(data => {
     if (data.length > 10) {
-    Notify.info('Too many matches found. Please enter a more specific name.')
+        Notify.info('Too many matches found. Please enter a more specific name.')
     } else if (data.length >= 2) {
         promis.then(createMarkup).then(insertMarkup)
     } else {
         promis.then(createOneCountryMarkup).then(insertMarkup)
     }
     }).catch(error => console.log(error))
-
 }
 
 Notify.init({
@@ -64,3 +63,20 @@ Notify.init({
     position: 'center-top',
     fontAwesomeIconSize: '64px',
 });
+
+
+// function promisHendler(promis) {
+//     promis.then(data => {
+//     if (data.status === 404) {
+//         Notify.failure('Oops, there is no country with that name')
+//     } else {return data}})
+//     .then(data => {
+//     if (data.length > 10) {
+//     Notify.info('Too many matches found. Please enter a more specific name.')
+//     } else if (data.length >= 2) {
+//         promis.then(createMarkup).then(insertMarkup)
+//     } else {
+//         promis.then(createOneCountryMarkup).then(insertMarkup)
+//     }
+//     }).catch(error => console.log(error))
+// }
